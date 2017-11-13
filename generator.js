@@ -22,8 +22,8 @@ export function generateRandomPoints(center, radius, count) {
 * @return {Object} The generated random points as JS object with lat and lng attributes.
 */
 export function generateRandomPoint(center, radius) {
-  var x0 = center.lng;
-  var y0 = center.lat;
+  var x0 = center.longitude;
+  var y0 = center.latitude;
   // Convert Radius from meters to degrees.
   var rd = radius/111300;
 
@@ -38,7 +38,12 @@ export function generateRandomPoint(center, radius) {
   var xp = x/Math.cos(y0);
 
   // Resulting point.
-  return {'latitude': y+y0, 'longitude': xp+x0};
+  return {
+    location: {
+      'latitude': y+y0,
+      'longitude': xp+x0
+    }
+  }
 }
 
 

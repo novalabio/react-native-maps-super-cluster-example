@@ -10,7 +10,7 @@ import {
   StyleSheet,
   TouchableHighlight,
 } from 'react-native'
-import Marker from 'react-native-maps'
+import { Marker } from 'react-native-maps'
 import ClusteredMapView from 'react-native-maps-super-cluster'
 import { generateRandomPoints, generateRandomPoint } from './generator'  
 
@@ -32,12 +32,12 @@ export default class App extends Component {
     this.renderMarker = this.renderMarker.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.reload()
   }
 
   reload = () => {
-    const newPins = generateRandomPoint({latitude: italyCenterLatitude, longitude: italyCenterLongitude}, radius, 50)
+    const newPins = generateRandomPoints({latitude: italyCenterLatitude, longitude: italyCenterLongitude}, radius, 50)
     this.setState({
       pins: newPins
     })
@@ -45,24 +45,35 @@ export default class App extends Component {
 
   loadMore = () => {
     let actualPins = this.state.pins
-    const newPins = generateRandomPoint({latitude: italyCenterLatitude, longitude: italyCenterLongitude}, radius, 50)
+    const newPins = generateRandomPoints({latitude: italyCenterLatitude, longitude: italyCenterLongitude}, radius, 50)
     actualPins = actualPins.concat(newPins)
 
     this.setState({
-      pins: newPins
+      pins: actualPins
     })
   }
 
   renderMarker = (pin) => {
+    console.log(pin)
     return (
-      <Marker key={`${Math.rando()}-pins`} coordinate={pin} />
+      <Marker coordinate={pin.location} />
     )
   }
 
   render() {
     return (
       <View style={styles.container} style={{flex: 1}}>
-        
+
+        {/* Cluster Map Example */}
+        <ClusteredMapView
+          data={this.state.pins}
+          style={{flex: 1}}
+          textStyle={{ color: '#65bc46' }}
+          initialRegion={{latitude: italyCenterLatitude, longitude: italyCenterLongitude, latitudeDelta: 12, longitudeDelta: 12 }}
+          containerStyle={{backgroundColor: 'white', borderColor: '#65bc46'}}
+          renderMarker={this.renderMarker} >
+        </ClusteredMapView>
+
         {/* Header - Control Test Bar */}
         <View style={styles.controlBar}>
           <TouchableHighlight onPress={this.reload}>
@@ -72,16 +83,6 @@ export default class App extends Component {
             <Text>Carica Ancora</Text>
           </TouchableHighlight>
         </View>
-
-        {/* Cluster Map Example */}
-        <ClusteredMapView
-          data={this.state.pins}
-          style={{flex: 1}}
-          textStyle={{ color: '#65bc46' }}
-          initialRegion={{latitude: italyCenterLatitude, longitude: italyCenterLongitude, latitudeDelta: 12, longitudeDelta: 12 }}
-          containerStyle={{backgroundColor: 'white', borderColor: '#65bc46'}}
-          renderMarker={this.renderMarker}>
-        </ClusteredMapView>
       </View>
     );
   }
@@ -95,11 +96,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   controlBar: {
+    flex: 1,
     top: 20,
     flexDirection: 'row',
     position: 'absolute',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   }
 });
