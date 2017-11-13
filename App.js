@@ -1,37 +1,87 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
 
-import React, { Component } from 'react';
+// @flow
+ 
+
+import React, { Component } from 'react'
 import {
+  Text,
+  View,
   Platform,
   StyleSheet,
-  Text,
-  View
-} from 'react-native';
+  TouchableHighlight,
+} from 'react-native'
+import Marker from 'react-native-maps'
+import ClusteredMapView from 'react-native-maps-super-cluster'
+import { generateRandomPoints, generateRandomPoint } from './generator'  
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
-export default class App extends Component<{}> {
+const italyCenterLatitude = 41.8962667,
+      italyCenterLongitude = 11.3340056,
+      radius = 600000 
+export default class App extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      pins: []
+    }
+
+    this.reload = this.reload.bind(this)
+    this.loadMore = this.loadMore.bind(this)
+    this.renderMarker = this.renderMarker.bind(this)
+  }
+
+  componentWillMount() {
+    this.reload()
+  }
+
+  reload = () => {
+    const newPins = generateRandomPoint({latitude: italyCenterLatitude, longitude: italyCenterLongitude}, radius, 50)
+    this.setState({
+      pins: newPins
+    })
+  }
+
+  loadMore = () => {
+    let actualPins = this.state.pins
+    const newPins = generateRandomPoint({latitude: italyCenterLatitude, longitude: italyCenterLongitude}, radius, 50)
+    actualPins = actualPins.concat(newPins)
+
+    this.setState({
+      pins: newPins
+    })
+  }
+
+  renderMarker = (pin) => {
+    return (
+      <Marker key={`${Math.rando()}-pins`} coordinate={pin} />
+    )
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+      <View style={styles.container} style={{flex: 1}}>
+        
+        {/* Header - Control Test Bar */}
+        <View style={styles.controlBar}>
+          <TouchableHighlight onPress={this.reload}>
+            <Text>Ricarica</Text>
+          </TouchableHighlight>
+          <TouchableHighlight onPress={this.loadMore}>
+            <Text>Carica Ancora</Text>
+          </TouchableHighlight>
+        </View>
+
+        {/* Cluster Map Example */}
+        <ClusteredMapView
+          data={this.state.pins}
+          style={{flex: 1}}
+          textStyle={{ color: '#65bc46' }}
+          initialRegion={{latitude: italyCenterLatitude, longitude: italyCenterLongitude, latitudeDelta: 12, longitudeDelta: 12 }}
+          containerStyle={{backgroundColor: 'white', borderColor: '#65bc46'}}
+          renderMarker={this.renderMarker}>
+        </ClusteredMapView>
       </View>
     );
   }
@@ -44,14 +94,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  controlBar: {
+    top: 20,
+    flexDirection: 'row',
+    position: 'absolute',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    justifyContent: 'space-around',
+  }
 });
