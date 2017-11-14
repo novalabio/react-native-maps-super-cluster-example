@@ -8,12 +8,11 @@ import {
   View,
   Platform,
   StyleSheet,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native'
 import { Marker } from 'react-native-maps'
 import ClusteredMapView from 'react-native-maps-super-cluster'
 import { generateRandomPoints, generateRandomPoint } from './generator'  
-
 
 const italyCenterLatitude = 41.8962667,
       italyCenterLongitude = 11.3340056,
@@ -54,9 +53,8 @@ export default class App extends Component {
   }
 
   renderMarker = (pin) => {
-    console.log(pin)
     return (
-      <Marker coordinate={pin.location} />
+      <Marker key={Math.random()} coordinate={pin.location} />
     )
   }
 
@@ -76,15 +74,16 @@ export default class App extends Component {
 
         {/* Header - Control Test Bar */}
         <View style={styles.controlBar}>
-          <TouchableHighlight onPress={this.reload}>
-            <Text>Ricarica</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={this.loadMore}>
-            <Text>Carica Ancora</Text>
-          </TouchableHighlight>
+          <TouchableOpacity
+            onPress={this.reload}>
+            <Text style={{fontSize: 16 }}>Reload</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.loadMore}>
+            <Text style={{ fontSize: 16 }}>Load more</Text>
+          </TouchableOpacity>
         </View>
       </View>
-    );
+    )
   }
 }
 
@@ -96,12 +95,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   controlBar: {
-    flex: 1,
-    top: 20,
-    flexDirection: 'row',
+    left: 8,
+    top: 24,
+    right: 8,
+    height: 40,
+    borderRadius: 4,
     position: 'absolute',
+    flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'transparent',
-    justifyContent: 'space-between',
+    backgroundColor: 'white',
+    justifyContent: 'space-around', 
   }
 });
