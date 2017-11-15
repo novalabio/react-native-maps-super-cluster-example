@@ -1,6 +1,6 @@
 
 // @flow
- 
+'use-strict'
 
 import React, { Component } from 'react'
 import {
@@ -78,6 +78,12 @@ export default class App extends Component {
             <Text style={styles.text}>Load more</Text>
           </TouchableOpacity>
         </View>
+
+        <Image 
+          source={require('./simbol.png')}
+          style={{position: 'absolute', bottom: 8, right: 8, width: 64, height: 64}}
+          resizeMode='contain' />
+
       </View>
     )
   }
@@ -111,4 +117,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold'
   },
-});
+})
