@@ -5,11 +5,11 @@
 * @param {number} count Number of points to generate.
 * @return {array} Array of Objects with lat and lng attributes.
 */
-export function generateRandomPoints(center, radius, count) {
-  var points = [];
-  for (var i=0; i<count; i++) {
-    points.push(generateRandomPoint(center, radius));
-  }
+export function generateRandomPoints(center, radius, count, current) {
+  const points = []
+  for (let i = current; i < current + count; i++)
+    points.push({ id: `pin${i}`, location: generateRandomPoint(center, radius) })
+
   return points;
 }
 
@@ -39,10 +39,8 @@ export function generateRandomPoint(center, radius) {
 
   // Resulting point.
   return {
-    location: {
-      'latitude': y+y0,
-      'longitude': xp+x0
-    }
+    latitude: y+y0,
+    longitude: xp+x0
   }
 }
 

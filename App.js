@@ -36,25 +36,18 @@ export default class App extends Component {
   }
 
   reload = () => {
-    const newPins = generateRandomPoints({latitude: italyCenterLatitude, longitude: italyCenterLongitude}, radius, 50)
-    this.setState({
-      pins: newPins
-    })
+    const pins = generateRandomPoints({latitude: italyCenterLatitude, longitude: italyCenterLongitude}, radius, 50, this.state.pins.length)
+    this.setState({ pins })
   }
 
   loadMore = () => {
-    let actualPins = this.state.pins
-    const newPins = generateRandomPoints({latitude: italyCenterLatitude, longitude: italyCenterLongitude}, radius, 50)
-    actualPins = actualPins.concat(newPins)
-
-    this.setState({
-      pins: actualPins
-    })
+    const pins = generateRandomPoints({latitude: italyCenterLatitude, longitude: italyCenterLongitude}, radius, 50, this.state.pins.length)
+    this.setState({ pins: this.state.pins.concat(pins) })
   }
 
   renderMarker = (pin) => {
     return (
-      <Marker key={Math.random()} coordinate={pin.location} />
+      <Marker key={pin.id} coordinate={pin.location} />
     )
   }
 
@@ -64,8 +57,8 @@ export default class App extends Component {
 
         {/* Cluster Map Example */}
         <ClusteredMapView
-          data={this.state.pins}
           style={{flex: 1}}
+          data={this.state.pins}
           textStyle={{ color: '#65bc46' }}
           initialRegion={{latitude: italyCenterLatitude, longitude: italyCenterLongitude, latitudeDelta: 12, longitudeDelta: 12 }}
           containerStyle={{backgroundColor: 'white', borderColor: '#65bc46'}}
@@ -75,11 +68,14 @@ export default class App extends Component {
         {/* Header - Control Test Bar */}
         <View style={styles.controlBar}>
           <TouchableOpacity
+            style={styles.button}
             onPress={this.reload}>
-            <Text style={{fontSize: 16 }}>Reload</Text>
+            <Text style={styles.text}>Reload</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.loadMore}>
-            <Text style={{ fontSize: 16 }}>Load more</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={this.loadMore}>
+            <Text style={styles.text}>Load more</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -90,20 +86,29 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#F5FCFF',
   },
   controlBar: {
-    left: 8,
     top: 24,
-    right: 8,
+    left: 25,
+    right: 25,
     height: 40,
     borderRadius: 4,
     position: 'absolute',
     flexDirection: 'row',
     alignItems: 'center',
+    paddingHorizontal: 20,
     backgroundColor: 'white',
-    justifyContent: 'space-around', 
-  }
+    justifyContent: 'space-between', 
+  },
+  button: {
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
 });
