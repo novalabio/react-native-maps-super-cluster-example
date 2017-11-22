@@ -6,6 +6,7 @@ import React, { Component } from 'react'
 import {
   Text,
   View,
+  Image,
   Platform,
   StyleSheet,
   TouchableOpacity,
