@@ -6,7 +6,7 @@ This is a showcase application for [react-native-maps-super-cluster](https://git
 
 #### iOS
 ```
-git clone https://github.com/novalabio/react-native-maps-super-cluster.git clusteredMap
+git clone https://github.com/novalabio/react-native-maps-super-cluster-example.git clusteredMap
 
 cd clusteredMap
 
@@ -17,7 +17,7 @@ react-native run-ios
 
 #### Android
 ```
-git clone https://github.com/novalabio/react-native-maps-super-cluster.git clusteredMap
+git clone https://github.com/novalabio/react-native-maps-super-cluster-example.git clusteredMap
 
 cd clusteredMap
 
