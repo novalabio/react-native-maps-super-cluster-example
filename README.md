@@ -2,7 +2,7 @@
 
 This is a showcase application for [react-native-maps-super-cluster](https://github.com/novalabio/react-native-maps-super-cluster), an high-performing map component with clustering for React Native, powered by [AirBnB's react-native-maps](https://github.com/airbnb/react-native-maps) and [MapBox's SuperCluster](https://github.com/mapbox/supercluster).
 
-You can test the app in your device with the Expo [demo app](https://exp.host/@razor7/novalabreactnativemapsclusteringexample).
+You can test the app in your device with the Expo [demo app](https://exp.host/@mgscreativa/novalabreactnativemapsclusteringexample).
 
 ## Running
 
