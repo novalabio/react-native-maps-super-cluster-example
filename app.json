@@ -1,4 +1,25 @@
 {
-  "name": "ClusteredMap",
-  "displayName": "ClusteredMap"
+  "expo": {
+    "name": "NovaLab React Native Maps Clustering Example",
+    "description": "App to showcase markers clustering in React Native Maps using react-native-maps-super-cluster library. Git repo here https://github.com/novalabio/react-native-maps-super-cluster-example",
+    "slug": "novalabreactnativemapsclusteringexample",
+    "privacy": "public",
+    "sdkVersion": "23.0.0",
+    "orientation": "portrait",
+    "icon": "./app/assets/app-icons/ios-app-icon.png",
+    "splash": {
+      "image": "./app/assets/splash/splash-screen.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#f1471d"
+    },
+    "ios": {
+      "bundleIdentifier": "com.mgscreativa.novalabreactnativemapsclusteringexample",
+      "icon": "./app/assets/app-icons/ios-app-icon.png"
+    },
+    "android": {
+      "package": "com.mgscreativa.novalabreactnativemapsclusteringexample",
+      "icon": "./app/assets/app-icons/android-app-icon.png",
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+    }
+  }
 }
