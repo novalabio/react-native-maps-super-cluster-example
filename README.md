@@ -20,7 +20,7 @@ npm start
 ```
 
 ## TODO
-Check [master branch](https://github.com/novalabio/react-native-maps-super-cluster-example). 
+Check [master branch](https://github.com/novalabio/react-native-maps-super-cluster-example#todo). 
 
 # License
 See [our License](https://github.com/novalabio/react-native-maps-super-cluster-example/blob/master/LICENSE) for more information.
