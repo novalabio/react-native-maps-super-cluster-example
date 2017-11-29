@@ -22,6 +22,11 @@ npm start
 ## TODO
 Check [master branch](https://github.com/novalabio/react-native-maps-super-cluster-example#todo). 
 
+# Contributors 
+ 
+* [Leonardo Lusoli](https://github.com/leolusoli) 
+* [Alberto Dallaporta](https://github.com/39otrebla) 
+
 # License
 See [our License](https://github.com/novalabio/react-native-maps-super-cluster-example/blob/master/LICENSE) for more information.
 
