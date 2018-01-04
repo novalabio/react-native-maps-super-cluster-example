@@ -72,7 +72,7 @@ export default class App extends Component {
         </View>
 
         {/* 
-        // For view the callout correctly, disable the onCalloutPressBehaviour
+        // For view the callout correctly, disable the preserveClusterPressBehavior
         <Callout tooltip style={styles.calloutStyle}>
           <ScrollView>
             {
