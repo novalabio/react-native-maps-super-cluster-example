@@ -8,11 +8,13 @@ import {
   Image,
   Platform,
   StyleSheet,
+  ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import { MapView } from 'expo';
 import ClusteredMapView from 'react-native-maps-super-cluster';
-import { generateRandomPoints } from './helpers/generator';
+import { generateRandomPoints, generateRandomPoint } from './helpers/generator';
 
 const italyCenterLatitude = 41.8962667;
 const italyCenterLongitude = 11.3340056;
@@ -54,7 +56,45 @@ class App extends Component {
   };
 
   renderMarker = pin => {
-    return <MapView.Marker key={pin.id} coordinate={pin.location} />;
+    return (
+      <MapView.Marker key={pin.id || Math.random()} coordinate={pin.location} />
+    );
+  };
+
+  renderCluster = (cluster, onPress) => {
+    const pointCount = cluster.pointCount;
+    const coordinate = cluster.coordinate;
+    const clusterId = cluster.clusterId;
+
+    const clusterEngine = this.map.getClusteringEngine();
+    const clusteredPoints = clusterEngine.getLeaves(clusterId, 100);
+
+    return (
+      <MapView.Marker
+        onPress={onPress}
+        coordinate={coordinate}
+        key={cluster.clusterId}
+      >
+        <View style={styles.clusterContainer}>
+          <Text style={styles.counterText}>{pointCount}</Text>
+        </View>
+
+        {
+          // // For view the callout correctly, disable the preserveClusterPressBehavior
+          // <MapView.Callout tooltip style={styles.calloutStyle}>
+          //   <ScrollView>
+          //     {clusteredPoints.map(p => {
+          //       return (
+          //         <Text style={{ color: '#65bc46' }} key={p.properties.item.id}>
+          //           {p.properties.item.id}
+          //         </Text>
+          //       );
+          //     })}
+          //   </ScrollView>
+          // </MapView.Callout>
+        }
+      </MapView.Marker>
+    );
   };
 
   render() {
@@ -64,15 +104,18 @@ class App extends Component {
         <ClusteredMapView
           style={{ flex: 1 }}
           data={this.state.pins}
+          ref={r => (this.map = r)}
           textStyle={{ color: '#65bc46' }}
+          renderMarker={this.renderMarker}
+          renderCluster={this.renderCluster}
+          preserveClusterPressBehavior={true}
+          edgePadding={{ top: 32, left: 10, right: 64, bottom: 64 }}
           initialRegion={{
             latitude: italyCenterLatitude,
             longitude: italyCenterLongitude,
             latitudeDelta: 12,
             longitudeDelta: 12,
           }}
-          containerStyle={{ backgroundColor: 'white', borderColor: '#65bc46' }}
-          renderMarker={this.renderMarker}
         />
 
         {/* Header - Control Test Bar */}
@@ -125,9 +168,39 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 20,
   },
+  novaLabLogo: {
+    right: 8,
+    bottom: 8,
+    width: 64,
+    height: 64,
+    position: 'absolute',
+  },
   text: {
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  clusterContainer: {
+    width: 24,
+    height: 24,
+    borderWidth: 1,
+    borderRadius: 12,
+    alignItems: 'center',
+    borderColor: '#65bc46',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+  },
+  counterText: {
+    fontSize: 14,
+    color: '#65bc46',
+    fontWeight: '400',
+  },
+  calloutStyle: {
+    width: 64,
+    height: 64,
+    padding: 8,
+    borderRadius: 8,
+    borderColor: '#65bc46',
+    backgroundColor: 'white',
   },
 });
 
