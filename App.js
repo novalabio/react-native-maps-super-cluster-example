@@ -9,15 +9,18 @@ import {
   Image,
   Platform,
   StyleSheet,
+  ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native'
-import { Marker } from 'react-native-maps'
+import { Marker, Callout } from 'react-native-maps'
 import ClusteredMapView from 'react-native-maps-super-cluster'
 import { generateRandomPoints, generateRandomPoint } from './generator'  
 
+
 const italyCenterLatitude = 41.8962667,
       italyCenterLongitude = 11.3340056,
-      radius = 600000 
+      radius = 600000
 export default class App extends Component {
 
   constructor(props) {
@@ -30,6 +33,7 @@ export default class App extends Component {
     this.reload = this.reload.bind(this)
     this.loadMore = this.loadMore.bind(this)
     this.renderMarker = this.renderMarker.bind(this)
+    this.renderCluster = this.renderCluster.bind(this)
   }
 
   componentDidMount() {
@@ -38,7 +42,7 @@ export default class App extends Component {
 
   reload = () => {
     const pins = generateRandomPoints({latitude: italyCenterLatitude, longitude: italyCenterLongitude}, radius, 50, this.state.pins.length)
-    this.setState({ pins })
+    this.setState({ pins: pins})
   }
 
   loadMore = () => {
@@ -71,8 +75,8 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container} style={{flex: 1}}>
-
-        {/* Cluster Map Example */}
+        
+        {/* Cluster Map Example */}      
         <ClusteredMapView
           style={{flex: 1}}
           data={this.state.pins}
@@ -99,12 +103,10 @@ export default class App extends Component {
             <Text style={styles.text}>Load more</Text>
           </TouchableOpacity>
         </View>
-
-        <Image 
+        <Image
+          resizeMode='contain'
           source={require('./simbol.png')}
-          style={{position: 'absolute', bottom: 8, right: 8, width: 64, height: 64}}
-          resizeMode='contain' />
-
+          style={{position: 'absolute', bottom: 8, right: 8, width: 64, height: 64}}/>
       </View>
     )
   }
@@ -151,8 +153,38 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 20,
   },
+  novaLabLogo: {
+    right: 8,
+    bottom: 8,
+    width: 64,
+    height: 64,
+    position: 'absolute',
+  },
   text: {
     fontSize: 16,
     fontWeight: 'bold'
+  },
+  clusterContainer: {
+    width: 24,
+    height: 24,
+    borderWidth: 1,
+    borderRadius: 12,
+    alignItems: 'center',
+    borderColor: '#65bc46',
+    justifyContent: 'center',
+    backgroundColor: '#fff'
+  },
+  counterText: {
+    fontSize: 14,
+    color: '#65bc46',
+    fontWeight: '400'
+  },
+  calloutStyle: {
+    width: 64,
+    height: 64,
+    padding: 8,
+    borderRadius: 8,
+    borderColor: '#65bc46',
+    backgroundColor: 'white', 
   },
 })
