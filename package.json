@@ -3,7 +3,6 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"postinstall": "bash postinstall/postinstall.sh",
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"test": "jest"
 	},
@@ -11,8 +10,8 @@
 		"prop-types": "^15.6.0",
 		"react": "^16.2.0",
 		"react-native": "^0.54.2",
-		"react-native-maps": "^0.20.1",
-		"react-native-maps-super-cluster": "^1.4.0"
+		"react-native-maps": "^0.21.0",
+		"react-native-maps-super-cluster": "^1.4.1"
 	},
 	"devDependencies": {
 		"babel-jest": "21.2.0",
