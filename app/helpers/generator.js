@@ -10,7 +10,7 @@ export function generateRandomPoints(center, radius, count, current) {
   for (let i = current; i < current + count; i++)
     points.push({
       id: `pin${i}`,
-      location: generateRandomPoint(center, radius),
+      location: generateRandomPoint(center, radius)
     });
 
   return points;
@@ -42,7 +42,7 @@ export function generateRandomPoint(center, radius) {
   // Resulting point.
   return {
     latitude: y + y0,
-    longitude: xp + x0,
+    longitude: xp + x0
   };
 }
 
@@ -51,5 +51,5 @@ export function generateRandomPoint(center, radius) {
 var randomGeoPoints = generateRandomPoints(
   { lat: 24.23, lng: 23.12 },
   1000,
-  100,
+  100
 );
