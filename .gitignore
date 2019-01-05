@@ -29,9 +29,6 @@ build/
 .gradle
 local.properties
 *.iml
-.project
-.settings
-.classpath
 
 # node.js
 #
@@ -54,3 +51,6 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+
+# Bundle artifact
+*.jsbundle
