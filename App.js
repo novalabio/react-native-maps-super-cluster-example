@@ -7,11 +7,9 @@ import {
   Text,
   View,
   Image,
-  Platform,
   StyleSheet,
-  ScrollView,
+  SafeAreaView,
   TouchableOpacity,
-  ActivityIndicator,
 } from 'react-native'
 import { Marker, Callout } from 'react-native-maps'
 import ClusteredMapView from 'react-native-maps-super-cluster'
@@ -74,8 +72,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <View style={styles.container} style={{flex: 1}}>
-        
+      <SafeAreaView style={styles.container}>        
         {/* Cluster Map Example */}      
         <ClusteredMapView
           style={{flex: 1}}
@@ -103,11 +100,12 @@ export default class App extends Component {
             <Text style={styles.text}>Load more</Text>
           </TouchableOpacity>
         </View>
+
         <Image
           resizeMode='contain'
           source={require('./simbol.png')}
-          style={{position: 'absolute', bottom: 8, right: 8, width: 64, height: 64}}/>
-      </View>
+          style={{position: 'absolute', bottom: 26, right: 8, width: 64, height: 64}}/>
+      </SafeAreaView>
     )
   }
 }
@@ -137,7 +135,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   controlBar: {
-    top: 24,
+    top: 48,
     left: 25,
     right: 25,
     height: 40,
