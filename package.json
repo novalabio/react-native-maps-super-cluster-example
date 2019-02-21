@@ -7,19 +7,22 @@
 		"test": "jest"
 	},
 	"dependencies": {
-		"prop-types": "^15.6.0",
-		"react": "^16.2.0",
-		"react-native": "^0.54.2",
-		"react-native-maps": "^0.21.0",
-		"react-native-maps-super-cluster": "^1.4.1"
+		"prop-types": "15.7.2",
+		"react": "16.8.2",
+		"react-native": "0.57.8",
+		"react-native-maps": "0.23.0",
+		"react-native-maps-super-cluster": "https://github.com/novalabio/react-native-maps-super-cluster#master"
 	},
 	"devDependencies": {
-		"babel-jest": "21.2.0",
-		"babel-preset-react-native": "4.0.0",
-		"jest": "21.2.1",
-		"react-test-renderer": "16.0.0"
+		"@babel/core": "^7.2.2",
+		"@babel/plugin-proposal-object-rest-spread": "^7.3.1",
+		"@babel/preset-flow": "^7.0.0",
+		"metro-react-native-babel-preset": "^0.51.1"
 	},
 	"jest": {
 		"preset": "react-native"
+	},
+	"resolutions": {
+		"react-devtools-core": "3.4.2"
 	}
 }
